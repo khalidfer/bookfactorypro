@@ -1,0 +1,22 @@
+{
+  "notifications": [
+    {
+      "id": "notif_002",
+      "date": "2026-11-17",
+      "type": "NEW_CONTENT",
+      "title": "New KDP Interiors Pack Coming Soon!",
+      "message": "We are preparing 30+ brand new Bold & Easy Coloring Pages, Mazes, and Activity Book interiors. Stay tuned for the upcoming release!",
+      "action_label": "Visit Blog & Tools",
+      "action_url": "https://khalidfer.com"
+    },
+    {
+      "id": "notif_001",
+      "date": "2026-11-17",
+      "type": "WELCOME",
+      "title": "Welcome to KDP Book Factory Pro v1.0.0",
+      "message": "Thank you for activating KDP Book Factory Pro! Check this notification center anytime for new KDP interiors, tips, and software updates.",
+      "action_label": "YouTube Channel",
+      "action_url": "https://www.youtube.com/c/KhalidFer"
+    }
+  ]
+}
