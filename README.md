@@ -42,6 +42,7 @@ KDP Book Factory Pro is a professional Windows desktop studio built to streamlin
 
 ## 👨‍💻 Author & Community
 
-- **Developed by**: [Khalid Fer](https://www.youtube.com/c/KhalidFer)
-- **Blog & Tools**: [khalidfer.com](https://khalidfer.blogspot.com)
+**KDP Book Factory Pro** · Developed by [Khalid Ferchach (Khalid Fer)](https://www.youtube.com/c/KhalidFer)
+
+[Official Website](https://khalidfer.github.io/bookfactorypro/) · [GitHub](https://github.com/bookfactorypro) · [YouTube](https://www.youtube.com/@BOOKFACTORYPRO) · [X (Twitter)](https://x.com/bookfactorypro) · [Instagram](https://www.instagram.com/bookfactorypro) · [Pinterest](https://www.pinterest.com/bookfactorypro) · [Reddit](https://www.reddit.com/user/bookfactorypro)
 - **Support & Feedback**: Use `Help -> Report Bug / Suggest Feature...` directly inside the application.
