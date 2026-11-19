@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KDP Book Factory Pro — All-in-One Amazon KDP Publishing Studio</title>
+  <meta name="description" content="Professional Windows desktop suite for Amazon KDP publishers. Generate puzzles, coloring books, full-wrap covers, 300 DPI upscaled art, and print-ready PDFs." />
+  <link rel="icon" type="image/png" href="screenshots/app-icon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            obsidian: '#09090B',
+            surface: '#141417',
+            surfaceHover: '#1C1C21',
+            borderSubtle: '#27272A',
+            emeraldPro: '#10B981',
+            emeraldHover: '#059669',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #09090B;
+      color: #FAFAFA;
+      overflow-x: hidden;
+    }
+    /* Subtle background grid */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    }
+    /* Smooth scroll reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Glass navbar */
+    .glass-nav {
+      background: rgba(9, 9, 11, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    /* Screenshot card hover lift */
+    .shot-card {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+    }
+    .shot-card:hover {
+      transform: translateY(-4px);
+      border-color: #3F3F46;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(16, 185, 129, 0.12);
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #09090B; }
+    ::-webkit-scrollbar-thumb { background: #27272A; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3F3F46; }
+  </style>
+</head>
+<body class="bg-grid antialiased selection:bg-emeraldPro/30 selection:text-emerald-200">
+
+  <!-- Sticky Navigation Bar -->
+  <header class="fixed top-0 inset-x-0 z-40 glass-nav border-b border-borderSubtle">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <img src="screenshots/app-icon.png" alt="KDP Book Factory Pro Logo" class="w-9 h-9 rounded-lg shadow-md group-hover:scale-105 transition-transform" />
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-base sm:text-lg tracking-tight text-white">KDP Book Factory Pro</span>
+          <span id="nav-version" class="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-medium bg-emeraldPro/10 text-emeraldPro border border-emeraldPro/20">v1.0.0</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400">
+        <a href="#workspace" class="hover:text-white transition-colors">Workspace</a>
+        <a href="#features" class="hover:text-white transition-colors">Core Tools</a>
+        <a href="#gallery" class="hover:text-white transition-colors">Screenshots</a>
+        <a href="#activation" class="hover:text-white transition-colors">Activation & FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="https://github.com/khalidfer/bookfactorypro/wiki" target="_blank" class="hidden sm:inline-flex text-sm font-medium text-zinc-400 hover:text-white px-3 py-2 transition-colors">
+          Docs
+        </a>
+        <a id="header-download-btn" href="https://github.com/khalidfer/bookfactorypro/releases/latest" target="_blank" class="inline-flex items-center gap-2 bg-emeraldPro hover:bg-emeraldHover text-zinc-950 font-semibold text-sm px-4 py-2 rounded-lg transition-all shadow-lg shadow-emeraldPro/10">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3"/></svg>
+          <span>Download</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-32 pb-20 sm:pt-40 sm:pb-28 px-4 sm:px-6 lg:px-8">
+    <!-- Ambient Emerald Glow -->
+    <div class="absolute top-24 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-emeraldPro/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-borderSubtle text-xs font-medium text-zinc-300 mb-6 reveal active">
+        <span class="w-2 h-2 rounded-full bg-emeraldPro animate-pulse"></span>
+        <span>Built for Windows 10 & 11 • 100% Local & Privacy-First</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.12] mb-6 reveal active">
+        The Complete Desktop Studio for <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Amazon KDP Publishers</span>
+      </h1>
+
+      <p class="max-w-2xl mx-auto text-base sm:text-lg text-zinc-400 leading-relaxed mb-10 reveal active">
+        Design full-wrap covers, generate mixed puzzle & coloring interiors, upscale art to 300 DPI, simulate royalties across 14 marketplaces, and export print-ready PDFs—all in one fast offline suite.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 reveal active">
+        <a id="hero-download-btn" href="https://github.com/khalidfer/bookfactorypro/releases/latest" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-emeraldPro hover:bg-emeraldHover text-zinc-950 font-bold text-base px-7 py-3.5 rounded-xl transition-all shadow-xl shadow-emeraldPro/15 hover:scale-[1.02]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3"/></svg>
+          <span id="hero-btn-text">Download for Windows (64-bit)</span>
+        </a>
+        <a href="#gallery" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-surface hover:bg-surfaceHover text-zinc-200 font-semibold text-base px-7 py-3.5 rounded-xl border border-borderSubtle transition-all">
+          <span>Explore Real Screenshots</span>
+          <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </a>
+      </div>
+
+      <!-- Main Hero App Showcase -->
+      <div id="workspace" class="relative mx-auto max-w-6xl rounded-2xl bg-surface p-2 sm:p-3 border border-borderSubtle shadow-2xl reveal">
+        <div class="flex items-center justify-between px-3 py-2 border-b border-borderSubtle/80 mb-2">
+          <div class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded-full bg-zinc-700"></span>
+            <span class="w-3 h-3 rounded-full bg-zinc-700"></span>
+            <span class="w-3 h-3 rounded-full bg-zinc-700"></span>
+          </div>
+          <span class="text-xs font-mono text-zinc-400">KDP Book Factory Pro — 240-Page Activity Book Workspace</span>
+          <span class="text-xs font-mono text-emeraldPro">● KDP Print Ready</span>
+        </div>
+        <img 
+          src="screenshots/main-workspace.png" 
+          alt="KDP Book Factory Pro Main Workspace" 
+          class="w-full rounded-xl cursor-zoom-in border border-borderSubtle/50"
+          onclick="openLightbox(this.src, 'Main Publishing Workspace — 240-Page Activity Book with Live Recto/Verso Margins & Preflight')"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Highlights Strip -->
+  <section class="border-y border-borderSubtle bg-surface/40 py-10 px-4">
+    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center reveal">
+      <div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-white">300 DPI</div>
+        <div class="text-xs sm:text-sm text-zinc-400 mt-1">Print-Calibrated PDF & Upscaler</div>
+      </div>
+      <div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-emeraldPro">14 Markets</div>
+        <div class="text-xs sm:text-sm text-zinc-400 mt-1">Real-Time KDP Royalty & VAT Engine</div>
+      </div>
+      <div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-white">209+ Niches</div>
+        <div class="text-xs sm:text-sm text-zinc-400 mt-1">Offline KDP Categories & Node IDs</div>
+      </div>
+      <div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-white">BYOK</div>
+        <div class="text-xs sm:text-sm text-zinc-400 mt-1">Bring Your Own Gemini & Pixabay Keys</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Spotlights (Alternating Layout with Real Screenshots) -->
+  <section id="features" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-28">
+    
+    <!-- Feature 1: Cover Studio -->
+    <div class="grid lg:grid-cols-12 gap-10 items-center reveal">
+      <div class="lg:col-span-5 space-y-4">
+        <div class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-emeraldPro/10 text-emeraldPro border border-emeraldPro/20">
+          COVER STUDIO & SPINE MATH
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          Parametric Full-Wrap Cover Studio
+        </h2>
+        <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+          Stop guessing spine widths. KDP Book Factory Pro automatically calculates exact Amazon spine dimensions based on page count and paper stock, complete with 2D spread canvas, KDP blueprint guides, and 25+ bestseller cover themes.
+        </p>
+        <ul class="space-y-2.5 text-sm text-zinc-300 pt-2">
+          <li class="flex items-center gap-2.5">
+            <span class="text-emeraldPro">✓</span> Exact width & height calculation (e.g., <code class="font-mono text-xs bg-surface px-1.5 py-0.5 rounded border border-borderSubtle">17.520" × 11.250"</code>)
+          </li>
+          <li class="flex items-center gap-2.5">
+            <span class="text-emeraldPro">✓</span> Instant Paperback ↔ Hardcover Dual-Edition Synchronizer
+          </li>
+          <li class="flex items-center gap-2.5">
+            <span class="text-emeraldPro">✓</span> Direct 300 DPI PNG & Vector Print-Ready PDF export
+          </li>
+        </ul>
+      </div>
+      <div class="lg:col-span-7">
+        <div class="rounded-2xl bg-surface p-2 border border-borderSubtle shot-card">
+          <img 
+            src="screenshots/cover-studio.png" 
+            alt="KDP Full-Wrap Cover Studio" 
+            class="w-full rounded-xl cursor-zoom-in"
+            onclick="openLightbox(this.src, 'KDP Full-Wrap Cover Studio & Pro Canvas — Exact Spine Math & Templates')"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 2: Puzzle & Interior Generators -->
+    <div class="grid lg:grid-cols-12 gap-10 items-center reveal">
+      <div class="lg:col-span-7 order-2 lg:order-1">
+        <div class="rounded-2xl bg-surface p-2 border border-borderSubtle shot-card">
+          <img 
+            src="screenshots/puzzle-studio.png" 
+            alt="Mixed Variety Puzzle Book Studio" 
+            class="w-full rounded-xl cursor-zoom-in"
+            onclick="openLightbox(this.src, 'Mixed Variety Puzzle Book Studio — Combine Word Search, Sudoku, Mazes & Math')"
+          />
+        </div>
+      </div>
+      <div class="lg:col-span-5 space-y-4 order-1 lg:order-2">
+        <div class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-emeraldPro/10 text-emeraldPro border border-emeraldPro/20">
+          AUTOMATED GENERATORS
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          Mixed Variety Puzzle & Interior Studios
+        </h2>
+        <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+          Build high-retention puzzle books, planners, and coloring interiors in seconds. Choose curated demographic presets (Adults Brain Fitness, Seniors Large Print, Kids Activity) or customize exact page allocations with unified answer keys.
+        </p>
+        <ul class="space-y-2.5 text-sm text-zinc-300 pt-2">
+          <li class="flex items-center gap-2.5">
+            <span class="text-emeraldPro">✓</span> Word Search, Sudoku, Mazes, Cryptograms, Nonograms & Math
+          </li>
+          <li class="flex items-center gap-2.5">
+            <span class="text-emeraldPro">✓</span> Built-in Interior Templates Library (Planners, Trackers, Journals)
+          </li>
+          <li class="flex items-center gap-2.5">
+            <span class="text-emeraldPro">✓</span> 1-Click "This Book Belongs To" & Copyright front-matter pages
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Feature 3: Royalty & Pricing Engine -->
+    <div class="grid lg:grid-cols-12 gap-10 items-center reveal">
+      <div class="lg:col-span-5 space-y-4">
+        <div class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-emeraldPro/10 text-emeraldPro border border-emeraldPro/20">
+          FINANCIAL INTELLIGENCE
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          KDP Printing Cost & Royalty Simulator
+        </h2>
+        <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+          Price your books with confidence across all 14 Amazon marketplaces. Instantly calculate manufacturing costs, 50% vs 60% royalty thresholds, minimum list prices, and European VAT splits—with 1-click psychological `.99` pricing.
+        </p>
+        <ul class="space-y-2.5 text-sm text-zinc-300 pt-2">
+          <li class="flex items-center gap-2.5">
+            <span class="text-emeraldPro">✓</span> Live breakdown of Print Cost, Amazon Cut & Net Author Profit
+          </li>
+          <li class="flex items-center gap-2.5">
+            <span class="text-emeraldPro">✓</span> Automatic multi-currency conversion (USD, EUR, GBP, JPY, CAD, AUD)
+          </li>
+          <li class="flex items-center gap-2.5">
+            <span class="text-emeraldPro">✓</span> Expanded Distribution eligibility verification
+          </li>
+        </ul>
+      </div>
+      <div class="lg:col-span-7">
+        <div class="rounded-2xl bg-surface p-2 border border-borderSubtle shot-card">
+          <img 
+            src="screenshots/royalty-simulator.png" 
+            alt="Amazon KDP Printing Cost & Royalty Simulator" 
+            class="w-full rounded-xl cursor-zoom-in"
+            onclick="openLightbox(this.src, 'Amazon KDP Printing Cost & Real-Time Royalty Simulator Across 14 Marketplaces')"
+          />
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Full Interactive Screenshot Gallery -->
+  <section id="gallery" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-borderSubtle bg-surface/25">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">
+          Every Tool You Need, Under One Roof
+        </h2>
+        <p class="text-zinc-400 text-sm sm:text-base">
+          Click any screenshot below to inspect the interface in full resolution.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Card 1 -->
+        <div class="rounded-xl bg-surface border border-borderSubtle overflow-hidden shot-card reveal">
+          <img src="screenshots/interior-library.png" alt="Interior Templates Library" class="w-full h-52 object-cover object-top cursor-zoom-in border-b border-borderSubtle" onclick="openLightbox(this.src, 'Interior Templates Library — Planners, Checklists, Trackers & Book Matter Pages')" />
+          <div class="p-5">
+            <h3 class="font-semibold text-white text-base">Interior Templates Library</h3>
+            <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">Browse categorized planners, trackers, journals, and checklists with live full-page preview before inserting.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="rounded-xl bg-surface border border-borderSubtle overflow-hidden shot-card reveal">
+          <img src="screenshots/image-upscaler.png" alt="300 DPI Image Upscaler" class="w-full h-52 object-cover object-top cursor-zoom-in border-b border-borderSubtle" onclick="openLightbox(this.src, 'Image Upscaler & 300 DPI Print Enhancer — 2x/4x Upscaling & Split Comparison')" />
+          <div class="p-5">
+            <h3 class="font-semibold text-white text-base">300 DPI Image Upscaler</h3>
+            <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">Upscale artwork 2x or 4x with side-by-side zoom comparison, line-art sharpening, and guaranteed 300 DPI metadata.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="rounded-xl bg-surface border border-borderSubtle overflow-hidden shot-card reveal">
+          <img src="screenshots/categories-finder.png" alt="Amazon KDP Categories Finder" class="w-full h-52 object-cover object-top cursor-zoom-in border-b border-borderSubtle" onclick="openLightbox(this.src, 'Amazon KDP Categories Finder — 100% Offline Hierarchy & Node ID Search')" />
+          <div class="p-5">
+            <h3 class="font-semibold text-white text-base">Offline KDP Categories Finder</h3>
+            <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">Search 209+ official Amazon KDP category paths and Node IDs offline and assign all 3 slots directly to your book.</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="rounded-xl bg-surface border border-borderSubtle overflow-hidden shot-card reveal">
+          <img src="screenshots/ai-listing.png" alt="AI KDP Listing Assistant" class="w-full h-52 object-cover object-top cursor-zoom-in border-b border-borderSubtle" onclick="openLightbox(this.src, 'AI KDP Listing Assistant — Powered by Your Own Gemini API Key')" />
+          <div class="p-5">
+            <h3 class="font-semibold text-white text-base">AI Listing & SEO Assistant</h3>
+            <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">Generate Amazon-compliant titles, subtitles, 7 backend keyword slots, and formatted HTML descriptions using your own Gemini key.</p>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="rounded-xl bg-surface border border-borderSubtle overflow-hidden shot-card reveal">
+          <img src="screenshots/dual-edition.png" alt="Paperback Hardcover Synchronizer" class="w-full h-52 object-cover object-top cursor-zoom-in border-b border-borderSubtle" onclick="openLightbox(this.src, 'Paperback ↔ Hardcover Dual-Edition Synchronizer')" />
+          <div class="p-5">
+            <h3 class="font-semibold text-white text-base">Paperback ↔ Hardcover Sync</h3>
+            <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">Convert any Paperback project into a Hardcover edition automatically with adjusted spine, gutter, and case-laminate wrap math.</p>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="rounded-xl bg-surface border border-borderSubtle overflow-hidden shot-card reveal">
+          <img src="screenshots/file-converter.png" alt="Universal Document & Image Converter" class="w-full h-52 object-cover object-top cursor-zoom-in border-b border-borderSubtle" onclick="openLightbox(this.src, 'Universal Document & Image Converter — Batch Transform Files to 300 DPI KDP PDF')" />
+          <div class="p-5">
+            <h3 class="font-semibold text-white text-base">Universal File Converter</h3>
+            <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">Batch convert Images, Word, PowerPoint, Excel, and PDFs into print-ready KDP books with optional blank reverse pages.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Start & Activation Steps -->
+  <section id="activation" class="py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+    <div class="text-center mb-14 reveal">
+      <h2 class="text-3xl font-bold text-white tracking-tight mb-3">Quick Start & Activation</h2>
+      <p class="text-zinc-400 text-sm sm:text-base">Get up and running on Windows in less than two minutes.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 reveal">
+      <div class="rounded-xl bg-surface border border-borderSubtle p-6">
+        <div class="w-8 h-8 rounded-lg bg-emeraldPro/15 text-emeraldPro font-mono font-bold text-sm flex items-center justify-center mb-4">1</div>
+        <h3 class="font-semibold text-white mb-2">Download & Install</h3>
+        <p class="text-xs text-zinc-400 leading-relaxed">Download <code class="text-zinc-200 font-mono">KDPBookFactoryPro_Setup.exe</code> from GitHub Releases and run the Windows installer.</p>
+      </div>
+
+      <div class="rounded-xl bg-surface border border-borderSubtle p-6">
+        <div class="w-8 h-8 rounded-lg bg-emeraldPro/15 text-emeraldPro font-mono font-bold text-sm flex items-center justify-center mb-4">2</div>
+        <h3 class="font-semibold text-white mb-2">Send Your HWID</h3>
+        <p class="text-xs text-zinc-400 leading-relaxed">Open the app, click <strong>Show</strong> next to your Hardware ID, and click <strong>Send HWID Request</strong> (or copy and email it) to receive your license key.</p>
+      </div>
+
+      <div class="rounded-xl bg-surface border border-borderSubtle p-6">
+        <div class="w-8 h-8 rounded-lg bg-emeraldPro/15 text-emeraldPro font-mono font-bold text-sm flex items-center justify-center mb-4">3</div>
+        <h3 class="font-semibold text-white mb-2">Add Your API Keys</h3>
+        <p class="text-xs text-zinc-400 leading-relaxed">Open <code class="text-zinc-200 font-mono">Tools → Preferences</code> to enter your own free Gemini & Pixabay API keys and default author name.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-borderSubtle py-12 px-4 sm:px-6 lg:px-8 text-sm text-zinc-500">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="screenshots/app-icon.png" alt="Logo" class="w-6 h-6 rounded" />
+        <span class="text-zinc-300 font-medium">KDP Book Factory Pro</span>
+        <span>• Developed by <a href="https://www.youtube.com/c/KhalidFer" target="_blank" class="text-zinc-300 hover:text-emeraldPro underline underline-offset-4">Khalid Fer</a></span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="https://github.com/khalidfer/bookfactorypro/releases" target="_blank" class="hover:text-zinc-300 transition-colors">Releases</a>
+        <a href="https://github.com/khalidfer/bookfactorypro/wiki" target="_blank" class="hover:text-zinc-300 transition-colors">User Guide</a>
+        <a href="https://www.youtube.com/c/KhalidFer" target="_blank" class="hover:text-zinc-300 transition-colors">YouTube Channel</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Fullscreen Lightbox Modal -->
+  <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md flex items-center justify-center p-4" onclick="closeLightbox()">
+    <div class="relative max-w-6xl w-full flex flex-col items-center" onclick="event.stopPropagation()">
+      <button onclick="closeLightbox()" class="self-end mb-3 px-3 py-1.5 rounded-lg bg-surface border border-borderSubtle text-xs font-medium text-zinc-300 hover:text-white hover:bg-surfaceHover">
+        Close (ESC) ✕
+      </button>
+      <img id="lightbox-img" src="" alt="Preview" class="max-h-[82vh] w-auto rounded-xl border border-borderSubtle shadow-2xl" />
+      <p id="lightbox-caption" class="mt-3 text-sm text-zinc-300 text-center font-medium"></p>
+    </div>
+  </div>
+
+  <!-- Scripts: Scroll Reveal, Lightbox & Auto-Fetch Latest GitHub Release -->
+  <script>
+    // 1. Scroll Reveal Animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // 2. Lightbox Functions
+    function openLightbox(src, caption) {
+      const lb = document.getElementById('lightbox');
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-caption').textContent = caption;
+      lb.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // 3. Dynamically Fetch Latest Release from GitHub API
+    fetch('https://api.github.com/repos/khalidfer/bookfactorypro/releases/latest')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (!data) return;
+        if (data.tag_name) {
+          document.getElementById('nav-version').textContent = data.tag_name;
+          document.getElementById('hero-btn-text').textContent = `Download ${data.tag_name} for Windows`;
+        }
+        const exeAsset = (data.assets || []).find(a => a.name.endsWith('.exe'));
+        if (exeAsset && exeAsset.browser_download_url) {
+          document.getElementById('header-download-btn').href = exeAsset.browser_download_url;
+          document.getElementById('hero-download-btn').href = exeAsset.browser_download_url;
+        }
+      })
+      .catch(() => {});
+  </script>
+</body>
+</html>
